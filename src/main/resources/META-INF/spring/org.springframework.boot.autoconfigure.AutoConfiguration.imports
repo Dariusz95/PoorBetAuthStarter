@@ -1,0 +1,2 @@
+com.poorbet.authstarter.security.PoorbetSecurityAutoConfiguration
+com.poorbet.authstarter.auth.config.AuthAutoConfiguration
