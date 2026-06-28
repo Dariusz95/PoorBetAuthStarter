@@ -74,7 +74,7 @@ public class PoorbetSecurityAutoConfiguration {
                                                       JwtAuthenticationConverter jwtAuthenticationConverter,
                                                       AuthorizationManager<RequestAuthorizationContext> apiAuthorizationManager) throws Exception {
         http
-                .securityMatcher("/api/**", "/actuator/**")
+                .securityMatcher("/api/**")
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     if (!properties.getUnprotectedPaths().isEmpty()) {
@@ -85,6 +85,22 @@ public class PoorbetSecurityAutoConfiguration {
                 })
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter))
+                );
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(Ordered.HIGHEST_PRECEDENCE + 2)
+    public SecurityFilterChain actuatorChain(HttpSecurity http) throws Exception {
+
+        http
+                .securityMatcher("/actuator/**")
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/actuator/health/**").permitAll()
+                        .requestMatchers("/actuator/info").permitAll()
+                        .anyRequest().permitAll()
                 );
 
         return http.build();
