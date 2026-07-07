@@ -36,12 +36,12 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
+            <id>github-auth</id>
             <name>GitHub Packages</name>
             <url>https://maven.pkg.github.com/${github.repository}</url>
         </repository>
         <snapshotRepository>
-            <id>github</id>
+            <id>github-auth</id>
             <name>GitHub Packages</name>
             <url>https://maven.pkg.github.com/${github.repository}</url>
         </snapshotRepository>
